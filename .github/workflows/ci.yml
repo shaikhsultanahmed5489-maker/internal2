@@ -1,30 +1,30 @@
-name: CI - Build & Push Docker Image 
- 
-on: 
-  push: 
-    branches: 
-      - main 
- 
-jobs: 
-  build: 
-    runs-on: ubuntu-latest 
- 
-    steps: 
- 
-      - uses: actions/checkout@v3 
- 
-      - name: Login Docker Hub 
-        uses: docker/login-action@v2 
-        with: 
-          username: ${{ secrets.sultanahmeddev }} 
-          password: ${{ secrets.sultanahmed@2005}} 
- 
-      - name: Build and Push Docker Image 
-        env: 
-          IMAGE: ${{ secrets.sultanahmeddev }}/myapp 
-          TAG: ${{ github.sha }} 
- 
-        run: | 
-          docker build -t $IMAGE:latest -t $IMAGE:$TAG . 
-          docker push $IMAGE:$TAG 
-          docker push $IMAGE:latest 
+
+name: CI - Build & Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.sultanahmeddev }}
+          password: ${{ secrets.dckr_pat_1RBo-ZRBF-Hqb6QEbKV8MBXCTwc }}
+
+      - name: Build and Push Docker Image
+        env:
+          IMAGE: ${{ secrets.sultanahmeddev }}/internal
+          TAG: ${{ github.sha }}
+        run: |
+          docker build -t $IMAGE:latest -t $IMAGE:$TAG .
+          docker push $IMAGE:$TAG
+          docker push $IMAGE:latest
