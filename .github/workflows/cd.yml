@@ -28,13 +28,13 @@ jobs:
             IMAGE=${{ secrets.sultanahmeddev }}/myapp 
             TAG=${{ github.event.workflow_run.head_sha }} 
  
-            sudo docker stop myapp || true 
-            sudo docker rm myapp || true 
+            sudo docker stop internal || true 
+            sudo docker rm internal || true 
  
             sudo docker pull $IMAGE:$TAG 
  
             sudo docker run -d \ 
               --restart always \ 
-              --name myapp \ 
+              --name internal \ 
               -p 8080:80 \ 
               $IMAGE:$TAG 
